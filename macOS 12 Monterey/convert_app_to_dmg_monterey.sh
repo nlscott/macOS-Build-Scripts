@@ -13,9 +13,11 @@ unmount_base=$(hdiutil unmount "/private/tmp/Shared Support" &>/dev/null)
 
 $mount_base
 $unmount_base
+
+#sanity checks, output to log
 echo "Build: $buildVersion"
 echo "OS: $osVersion"
-echo "$adminpass"
+echo "$adminpass" # credential saved in jenkins
 
 #---------------------------------------------------------------------------------------------------
 
@@ -23,7 +25,7 @@ dmg_name="Install macOS Monterey $osVersion$space$buildVersion"
 
 
 #Create a DMG Disk Image
-hdiutil create -o /tmp/"$dmg_name" -size 13000m -volname "$mount_name" -layout SPUD -fs HFS+J
+hdiutil create -o /tmp/"$dmg_name" -size 15000m -volname "$mount_name" -layout SPUD -fs HFS+J
 
 #Mount it to your macOS
 hdiutil attach /tmp/"$dmg_name".dmg -noverify -mountpoint /Volumes/"$mount_name"
